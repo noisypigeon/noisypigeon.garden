@@ -1,14 +1,14 @@
-# Lives here, not in library: deploy-pages only deploys the calling repo's site.
-# Named pages.yml, the one name runway's sites.yml dispatches in a shim
-# (LIB-0034 §4). Until LIB-0035's cutover finishes it still builds this repo's
-# own web/; then it becomes a call to the library's site-pages.yml.
+# This repo is only noisypigeon.garden's Pages shim (LIB-0031): Pages deploys
+# only the repo the workflow runs in (DEV-0156). The site lives in
+# noisypigeon/runway at workloads/garden/, and this builds runway's current main
+# and deploys it here. runway's sites.yml dispatches it on a site change,
+# garden-generate.yml's commits included. Every shim's deploy workflow is
+# pages.yml, the one name those callers know (LIB-0034 §4). The deploy itself
+# is the library's site-pages.yml, which needs only the spoke and the workload
+# (LIB-0035 §3).
 name: Deploy noisypigeon.garden
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - "web/**"
   workflow_dispatch: {}
 
 permissions:
@@ -22,11 +22,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: noisypigeon/library/.github/workflows/zola-site-pages.yml@workflows/v4.13.0
+    uses: noisypigeon/library/.github/workflows/site-pages.yml@workflows/v5.1.0
     with:
-      src_dir: web
-      build_cmd: "zola build"
-      fetch_script: fetch-lib.sh
-      theme_script: .lib-src/zola-site/resolve-theme.sh
-      terraform_docs: true
-      extra_step: ".lib-src/.github/scripts/generate-module-redirects.sh --content-root web/content --static-root web/static"
+      spoke: noisypigeon/runway
+      workload: garden
