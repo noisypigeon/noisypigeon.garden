@@ -1,5 +1,8 @@
 # Lives here, not in library: deploy-pages only deploys the calling repo's site.
-name: Deploy garden
+# Named pages.yml, the one name runway's sites.yml dispatches in a shim
+# (LIB-0034 §4). Until LIB-0035's cutover finishes it still builds this repo's
+# own web/; then it becomes a call to the library's site-pages.yml.
+name: Deploy noisypigeon.garden
 
 on:
   push:
@@ -14,7 +17,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: garden-pages
+  group: pages
   cancel-in-progress: false
 
 jobs:
