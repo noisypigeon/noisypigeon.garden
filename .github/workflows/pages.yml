@@ -1,11 +1,11 @@
 # This repo is only noisypigeon.garden's Pages shim (LIB-0031): Pages deploys
 # only the repo the workflow runs in (DEV-0156). The site lives in
-# noisypigeon/runway at workloads/garden/, and this builds runway's current main
-# and deploys it here. runway's sites.yml dispatches it on a site change,
-# garden-generate.yml's commits included. Every shim's deploy workflow is
-# pages.yml, the one name those callers know (LIB-0034 §4). The deploy itself
-# is the library's site-pages.yml, which needs only the spoke and the workload
-# (LIB-0035 §3).
+# noisypigeon/runway at workloads/noisypigeon.garden/garden/ (LIB-0037), and
+# this builds runway's current main and deploys it here. runway's sites.yml
+# dispatches it on a site change, garden-generate.yml's commits included.
+# Every shim's deploy workflow is pages.yml, the one name those callers know
+# (LIB-0034 §4). The deploy itself is the library's site-pages.yml, which
+# needs only the spoke and the workload (LIB-0035 §3).
 name: Deploy noisypigeon.garden
 
 on:
@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: noisypigeon/library/.github/workflows/site-pages.yml@workflows/v5.1.0
+    uses: noisypigeon/library/.github/workflows/site-pages.yml@workflows/v6.1.0
     with:
       spoke: noisypigeon/runway
-      workload: garden
+      workload: noisypigeon.garden/garden
