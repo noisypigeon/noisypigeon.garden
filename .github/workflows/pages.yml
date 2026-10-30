@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: noisypigeon/library/.github/workflows/site-pages.yml@workflows/v6.1.0
+    uses: noisypigeon/runway/.github/workflows/site-pages.yml@workflows/v9.3.0
     with:
       spoke: noisypigeon/runway
       workload: noisypigeon.garden/garden
